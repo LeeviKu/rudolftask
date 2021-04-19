@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import axios from 'axios'
 import "../Login.css"
-import TextField from "@material-ui/core/TextField"
-import Box from '@material-ui/core/Box';
+import { TextField, InputAdornment, IconButton } from "@material-ui/core"
+import Visibility from "@material-ui/icons/Visibility"
+import VisibilityOff from "@material-ui/icons/VisibilityOff"
+import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 
 async function loginUser(credentials) {
@@ -15,6 +17,9 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -37,21 +42,41 @@ export default function Login({ setToken }) {
           <lable>
             <Box width={380} mb={3}>
             <TextField InputLabelProps={{
-                style: {color: "#C6C6C6"}
+                style: {color: "#C6C6C6",
+                fontSize: 18
+              }
               }} fullWidth="true" className="loginField" label="EMAIL" variant="outlined" onChange={e => setUserName(e.target.value)}></TextField>
             </Box>
           </lable>
           <lable>
             <Box width={380} mb={3} pb={8}>
-              <TextField InputLabelProps={{
-                style: {color: "#C6C6C6"}
-              }} fullWidth="true" type="password" label="PASSWORD" variant="outlined" onChange={e => setPassword(e.target.value)}></TextField>
+              <TextField 
+                InputLabelProps={{
+                  style: {color: "#C6C6C6",
+                  fontSize: 18
+                  }
+                }}
+                InputProps={{
+                  endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}>
+                      {showPassword ? <Visibility style={{fontSize: "22px"}} /> : <VisibilityOff style={{fontSize: "22px"}}/>}
+                    </IconButton>
+                  </InputAdornment>
+                  )
+                }} fullWidth="true" type={showPassword ? "text" : "password"} label="PASSWORD" variant="outlined" onChange={e => setPassword(e.target.value)}>
+              </TextField>
             </Box>
           </lable>
           <Button style={{
             backgroundColor: "#444D63",
-            color: "#F2F2F2"
-          }} size="large" variant="contained" type="submit">NEXT</Button>
+            color: "#F2F2F2",
+            borderRadius: 9,
+            fontSize: 18
+          }} size="large" variant="contained" type="submit">NEXT
+          </Button>
         </form>
       </div>
     </div>
