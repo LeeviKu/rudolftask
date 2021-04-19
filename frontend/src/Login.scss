@@ -1,0 +1,24 @@
+.login-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.login-img {
+    height: 100%;
+    max-width: 100%;
+}
+
+.login-left {
+    height: 100vh;
+}
