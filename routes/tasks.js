@@ -1,12 +1,24 @@
 const express = require('express')
-const users = require('../repositories/userRepository.js')
+const repo = require('../repositories/userRepository.js')
 const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
 router.get('/tasks', authenticateToken, async (req, res) => {
-    // send tasks
-    res.send(req.user.email)
+    const tasks = await repo.getTasks(req.user.id)
+    res.send(tasks)
+})
+
+router.post('/tasks', authenticateToken, async (req, res) => {
+    const result = await repo.addTask(req.user.id, req.body.title)
+    console.log("added")
+    res.send(result)
+})
+
+router.delete('/tasks', authenticateToken, async (req, res) => {
+    const result = await repo.deleteTask(req.user.id, req.body.title)
+    console.log("deleted")
+    res.send(result)
 })
 
 function authenticateToken(req, res, next) {

@@ -9,6 +9,30 @@ const repository = {
                 resolve(results)
             })
         })
+    },
+    getTasks: (userId) => {
+        return new Promise((resolve, reject) => {
+            pool.query('SELECT * FROM task WHERE userId = ?', userId, (error, results, fields) => {
+                if (error) reject(error)
+                resolve(results)
+            })
+        })
+    },
+    addTask: (userId, title) => {
+        return new Promise((resolve, reject) => {
+            pool.query('INSERT INTO task (userId, title) VALUES (?, ?)', [userId, title], (error, results, fields) => {
+                if (error) reject(error)
+                resolve(results)
+            })
+        })
+    },
+    deleteTask: (userId, title) => {
+        return new Promise((resolve, reject) => {
+            pool.query('DELETE FROM task where userId = ? AND title = ?', [userId, title], (error, results, fields) => {
+                if (error) reject(error)
+                resolve(results)
+            })
+        })
     }
 }
 

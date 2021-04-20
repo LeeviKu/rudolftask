@@ -7,17 +7,18 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff"
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 
-async function loginUser(credentials) {
+async function loginUser(credentials, setWrongCredentials) {
    return axios.post('http://localhost:8080/login', {
        username: credentials.username,
        password: credentials.password
-   }).then(result => result.data)
+   }).then(result => result.data).catch((error) => {setWrongCredentials(true)})
 }
 
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -26,8 +27,10 @@ export default function Login({ setToken }) {
     const token = await loginUser({
       username,
       password
-    });
-    setToken(token.accessToken);
+    }, setWrongCredentials);
+    if (token) {
+      setToken(token.accessToken);
+    }
   }
 
     return(
@@ -39,16 +42,17 @@ export default function Login({ setToken }) {
         <h1 className="logo">The Rudolf</h1>
         <h3 className="sign">Sign-in!</h3>
         <form onSubmit={handleSubmit} className="form">
-          <lable>
+          <label>
             <Box width={380} mb={3}>
             <TextField InputLabelProps={{
                 style: {color: "#C6C6C6",
                 fontSize: 18
               }
-              }} fullWidth="true" className="loginField" label="EMAIL" variant="outlined" onChange={e => setUserName(e.target.value)}></TextField>
+              }} error={wrongCredentials} fullWidth={true} className="loginField" label="EMAIL" 
+                variant="outlined" onChange={e => setUserName(e.target.value)}></TextField>
             </Box>
-          </lable>
-          <lable>
+          </label>
+          <label>
             <Box width={380} mb={3} pb={8}>
               <TextField 
                 InputLabelProps={{
@@ -66,10 +70,12 @@ export default function Login({ setToken }) {
                     </IconButton>
                   </InputAdornment>
                   )
-                }} fullWidth="true" type={showPassword ? "text" : "password"} label="PASSWORD" variant="outlined" onChange={e => setPassword(e.target.value)}>
+                }} error={wrongCredentials} helperText={wrongCredentials ? "Email and password don't match!" : ""} 
+                  fullWidth={true} type={showPassword ? "text" : "password"} label="PASSWORD" 
+                  variant="outlined" onChange={e => setPassword(e.target.value)}>
               </TextField>
             </Box>
-          </lable>
+          </label>
           <Button style={{
             backgroundColor: "#444D63",
             color: "#F2F2F2",

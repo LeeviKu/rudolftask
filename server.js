@@ -18,12 +18,10 @@ const server = app.listen(port, () => {
     console.log(`Listening on port ${server.address().port}`);
 })
 
-/*const p = async () => {
+const p = async () => {
     const salt = await bcrypt.genSalt()
-    const pw = await bcrypt.hash("salasana", salt)
+    const pw = await bcrypt.hash("jotain", salt)
     console.log(pw)
 }
 
 p()
-
-*/

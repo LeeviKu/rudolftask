@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     try {
         const correctPassword = await bcrypt.compare(req.body.password, user[0].password)
         if(correctPassword) {
-            const userInformation = { email: user[0].email, password: user[0].password }
+            const userInformation = { id: user[0].id, email: user[0].email, password: user[0].password }
             var accessToken = await jwt.sign(userInformation, tokenS)
             res.json({
                 accessToken: accessToken
