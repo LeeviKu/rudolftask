@@ -10,7 +10,7 @@ import "../tasks.css"
 
 const tasksRequest = (token) => {
     console.log(token)
-    return axios.get("http://localhost:8080/api/tasks", {
+    return axios.get("https://rudolf-task.herokuapp.com/api/tasks", {
         headers: {'Authorization': `Bearer ${token}`}
     }).then(result => result.data)
 }
@@ -22,7 +22,7 @@ const getTasks = async (setTasks, token) => {
 }
 
 const deleteTask = async (task, token, setTasks, tasks) => {
-    axios.delete('http://localhost:8080/api/tasks', {
+    axios.delete('https://rudolf-task.herokuapp.com/api/tasks', {
         headers: {'Authorization': `Bearer ${token}`},
         data: {title : task.title}
     }).then(setTasks(tasks.filter(i => i.title !== task.title ))).catch(error => console.log(error))
@@ -69,7 +69,7 @@ export default function Todos(props) {
         })
         closeModal()
         if (!duplicate) {
-            await axios.post('http://localhost:8080/api/tasks', {
+            await axios.post('https://rudolf-task.herokuapp.com/api/tasks', {
                 title: title
             }, {
                 headers: {'Authorization': `Bearer ${token}`}

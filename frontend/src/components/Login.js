@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 
 async function loginUser(credentials, setWrongCredentials) {
-   return axios.post('http://localhost:8080/login', {
+   return axios.post('https://rudolf-task.herokuapp.com/login', {
        username: credentials.username,
        password: credentials.password
    }).then(result => result.data).catch((error) => {setWrongCredentials(true)})
