@@ -11,6 +11,7 @@ app.use(express.json())
 
 app.use("/login", login)
 app.use("/api", tasks)
+app.use(express.static("build"));
 
 
 const port = process.env.PORT || 8080;

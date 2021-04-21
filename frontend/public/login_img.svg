@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1106" height="1080" viewBox="0 0 1106 1080">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" width="1106" height="1080" viewBox="0 0 1106 1080">
   <defs>
     <filter id="Path_52" x="668.688" y="456.852" width="209.17" height="241.105" filterUnits="userSpaceOnUse">
       <feOffset dy="3" input="SourceAlpha"/>
