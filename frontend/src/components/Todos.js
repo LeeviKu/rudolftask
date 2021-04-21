@@ -59,6 +59,10 @@ export default function Todos(props) {
         setIsOpen(true)
     }
 
+    const logOut = () => {
+        props.setToken("")
+    }
+
     const handleSubmit = async (e, token) => {
         e.preventDefault();
         let duplicate = false
@@ -79,6 +83,18 @@ export default function Todos(props) {
 
     return ( 
         <div className="wrapper">
+            <div className="tasks">
+                {tasks.map((item) => {
+                    return (
+                        <div>
+                        <span>{item.title}</span>
+                        <IconButton onClick={() => deleteTask(item, props.token, setTasks, tasks)}>
+                            <DeleteIcon style={{fontSize: "22px"}} />
+                        </IconButton>
+                        </div>
+                    )
+                })}
+            </div>
             <Box p={2}>
             <Button style={{
                 backgroundColor: "#444D63",
@@ -127,17 +143,17 @@ export default function Todos(props) {
                     </Box>
                 </form>
             </Modal>
-            <div className="tasks">
-            {tasks.map((item) => {
-                return (
-                    <div>
-                    <span>{item.title}</span>
-                    <IconButton onClick={() => deleteTask(item, props.token, setTasks, tasks)}>
-                        <DeleteIcon style={{fontSize: "22px"}} />
-                    </IconButton>
-                    </div>
-                )
-                })}
+            <div className="logout">
+            <Box p={2}>
+            <Button style={{
+                backgroundColor: "#444D63",
+                color: "#F2F2F2",
+                borderRadius: 9,
+                fontSize: 16,
+                maxWidth: '160px', maxHeight: '40px', minWidth: '160px', minHeight: '40px'
+            }} onClick={logOut} width="300" variant="contained" type="submit">Log out
+            </Button>
+            </Box>
             </div>
         </div>
         )

@@ -11,7 +11,7 @@ function App() {
   }
   return (
     <div className="wrapper">
-      <Todos token={token}></Todos>
+      <Todos token={token} setToken={setToken}></Todos>
     </div>
   )
 }
